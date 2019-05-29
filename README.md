@@ -11,6 +11,7 @@ Issues:
 - Add captioning and playback controls to video popup
 
 Assets:
+Imagery and Video assets too large to upload.
 Content XML in groups/cps/documents/assets - Note: modify filename to xml_pres_timeline(local).xml during development. Overwrite other versions during test or publication.
-Images in groups/cps/documents/image
-Video in groups/cps/documents/multimedia
+Images would be in groups/cps/documents/image
+Video would be in groups/cps/documents/multimedia
