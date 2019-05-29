@@ -1,0 +1,403 @@
+﻿<!-- Test Path /-->
+<content imgPath="groups/cps/documents/image/">
+
+<article type="" title="" date=""></article>
+
+<!-- Production Path /-->
+<!--<content imgPath="http://www.eumetsat.int/groups/cps/documents/image/">/-->
+
+	<tile name="tl_period_1960-69.jpg">
+	
+		<article type="coop" img="tl_period_1960-69_01" caption="An early Television Infrared Observation Satellite (TIROS)" title="First satellite imagery available" date="1960S">From the 1960s, satellite imagery from the US polar-orbiting Television Infrared Observation Satellites (TIROS) became available to European weather forecasting offices.</article>
+
+		<article type="coop" img="tl_period_1960-69_02" caption="European Space Research Organisation
+- Conseil Européen de Recherche Spatiale" title="New ESRO remit" date="NOVEMBER 1968">Delegates at the European Space Conference decide that the European Space Research Organisation (ESRO) - the precursor to the European Space Agency (ESA) - should extend its brief to encompass satellite application programmes.</article>
+	
+	</tile>
+	<tile name="tl_period_1970.jpg">
+	
+		<article type="prog" img="tl_period_1970_01" caption="An artist's impression of a first generation Meteosat satellite" title="Initial Meteosat concept" date="JANUARY 1970">ESRO, in collaboration with the Ad Hoc Group for Space Meteorology, develops a preliminary concept for a satellite, basically a French project called 'Meteosat'.</article>
+
+	</tile>
+	<tile name="tl_period_1971.jpg">
+
+		<article type="prog" img="tl_period_1971_01" caption="The American Geostationary Operational Environmental Satellite (GOES) system overview" title="Geostationary Programme specification" date="JUNE 1971">Members of the Ad Hoc Group meet to conclude that the ideal European system would be a geostationary satellite able to provide cloud cover images in the visible and infrared spectrum, with a polar-orbiting satellite for temperature soundings, plus a communications package to collect and relay meteorological data from ground-based platforms.</article>
+
+	</tile>
+	<tile name="tl_period_1972.jpg">
+
+		<article type="coop" title="EUMETSAT concept seeded" date="MAY 1972">A group from the European meteorological services proposes details for a central meteorological processing centre - called the Meteorological Information Extraction Centre (MIEC) - to perform tasks that were too complex or expensive to duplicate at different national centres.</article>
+
+		<article type="coop" img="tl_period_1972_01" caption="The eight ESA Member States which signed the agreement" title="'Meteosat Arrangement' agreement signed" date="JULY 1972">The eight ESA Member States participating in the project sign an agreement called the Meteosat Arrangement which envisaged that the meteorological services would pay for the MIEC.</article>
+
+	</tile>
+	<tile name="tl_period_1973.jpg">
+	</tile>
+	<tile name="tl_period_1974.jpg">
+	</tile>
+	<tile name="tl_period_1975.jpg">
+
+		<article type="ops" title="Operational responsibility for Meteosat defined" date="MARCH 1975">ESRO Council agrees to a protocol enabling the organisation to operate Meteosat via a programme board. The terms of the new protocol give ESA responsibility for operating the first Meteosat satellite for an additional three years, which in practice extended its control of the satellite until 23 November 1980.</article>
+
+	</tile>
+	<tile name="tl_period_1976.jpg">
+	</tile>
+	<tile name="tl_period_1977.jpg">
+
+		<article type="prog" img="tl_period_1977_01" caption="The launch of Meteosat-1" title="Meteosat-1 launched" date="23 SEPTEMBER 1977">The first Meteosat (called Meteosat F1) was launched.</article>
+
+	</tile>
+	<tile name="tl_period_1978.jpg">
+	</tile>
+	<tile name="tl_period_1979.jpg">
+
+		<article type="ops" title="ESA Operational proposal" date="JANUARY 1979">Proposal for ESA to operate Meteosat on EUMETSAT's behalf, with EUMETSAT defining the boundaries and ESA conducting related research and development which was not well received due to the need for a proven system.</article>
+
+		<article type="prog" img="tl_period_1979_01" caption="Meteosat-1 radiometer output" title="Meteosat-1 radiometer failure" date="NOVEMBER 1979">This concern proved to be justified when the radiometer on Meteosat 1 failed, demonstrating the need for reliability. After two years of continuous images generated 48 times each day, the radiometer failed prematurely, due to a fault in a resistor. The data had in this short time proved to be indispensable, prompting urgent discussions on how to ensure long-term data continuity on a fully operational basis.</article>
+
+	</tile>
+	<tile name="tl_period_1980.jpg">
+	</tile>
+	<tile name="tl_period_1981.jpg">
+	
+		<article type="corp" img="tl_period_1981_01" caption="The Intergovernmental Conference in Paris, January 1981" title="Conference defines EUMETSAT" date="JANUARY 1981">An Intergovernmental Conference was convened in Paris when it was agreed that the continuity of meteorological satellites in Europe should be assured by a new international organisation to be named EUMETSAT, the European Organisation for the Exploitation of Meteorological Satellites.</article>
+
+		<article type="prog" img="tl_period_1981_02" caption="Metosat-2 is launched" title="Meteosat-2 launched" date="JUNE 1981">The launch of Meteosat-2 on Ariane-1 flight L03 from Kourou marked the renewal of imaging after a 20-month gap. This became a routine operation to be continued by a succession of satellites from the nominal location at 0° Longitude, 0° Latitude, without major breaks ever since.</article>
+
+	</tile>
+	<tile name="tl_period_1982.jpg">
+	</tile>
+	<tile name="tl_period_1983.jpg">
+
+		<article type="prog" title="Meteosat Operational Programme initiated" date="MARCH 1983">In anticipation of the establishment of EUMETSAT, the European Space Agency started the Meteosat Operational Programme. The programme covered the construction and launch of three new satellites, Meteosat-4, -5, -6, and all operational activities until November 1995.</article>
+
+		<article type="corp" img="tl_period_1983_01" caption="The second Intergovernmental Conference in May 1983" title="EUMETSAT Convention formalised" date="MAY 1983">The second (and final) session of the Intergovernmental Conference agreed on the text of the EUMETSAT Convention and formally opened it for ratification by future European Member States.</article>
+
+	</tile>
+	<tile name="tl_period_1984.jpg">
+
+		<article type="corp" img="tl_period_1984_01" caption="Cutting from the 'Darmstadter Echo' newspaper on the arrival of EUMETSAT in the city" title="EUMETSAT interim unit" date="MARCH 1984">An EUMETSAT interim unit was established, located in ESA headquarters, to prepare the way for the entry into force of the new organisation.</article>
+
+	</tile>
+	<tile name="tl_period_1985.jpg">
+
+		<article type="prog" title="DCS aboard Meteosat-1 ceases" date="OCTOBER 1985">The Data Collection System (DCS) on Meteosat-1 finally came to an end. This mission had never been supported by Meteosat-2 which continued to provide imagery. The DCS over the Atlantic was taken over temporarily by a US satellite as part of a cooperation arranged within the framework of the CGMS.</article>
+
+	</tile>
+	<tile name="tl_period_1986.jpg">
+
+		<article type="corp" img="tl_period_1986_01" caption="'Elfengrund' villa, EUMETSAT's Headquarters 1986 – 1995" title="EUMETSAT founded" date="19 JUNE 1986">The EUMETSAT Convention entered into force as an international agreement amongst 16 European Member States, making the new organisation a reality. At the first meeting of the EUMETSAT Council, hosted by ESA in Paris, the Council agreed that its headquarters of would be located in Darmstadt, Germany, with Mr. John Morgan (UK) as its first Director.</article>
+
+		<article type="corp" img="tl_period_1986_02" caption="Director-General John Morgan and Volker Liebig installing shelving" title="Director-General Arrives" date="AUGUST 1986">The Director-General arrived in Darmstadt and started to recruit staff from an initial establishment of ten. They worked from the temporary headquarters at 'Elfengrund' villa in Darmstadt, which was to be their home for the following nine years.</article>
+
+	</tile>
+	<tile name="tl_period_1987.jpg">
+
+		<article type="ops" img="tl_period_1987_01" caption="The Meteosat control room at ESOC" title="EUMETSAT assumes control of MOP" date="01 JANUARY 1987">EUMETSAT formally takes over ownership of the Meteosat Operational Programme, to comprise of three satellites. </article>
+
+	</tile>
+	<tile name="tl_period_1988.jpg">
+
+		<article type="prog" img="tl_period_1988_01" caption="Meteosat-3 is launched aboard Ariane Flight v22" title="Meteosat-3 launched" date="JUNE 1988">An engineering prototype satellite, the P2 model, had been refurbished and was launched as Meteosat-3 on Ariane flight V22. The satellite was immediately put into service for routine operations, as Meteosat-2 was close to the end of its on-board fuel supply and had reached the extreme orbital inclination convenient for routine imaging.</article>
+
+	</tile>
+	<tile name="tl_period_1989.jpg">
+
+		<article type="prog" img="tl_period_1989_01" caption="Meteosat-4 is prepared for launch" title="Meteosat-4 launched" date="MARCH 1989">The first of these satellites, MOP-1 (Meteosat-4), is launched on Ariane flight V29 and became the primary operational satellite, while the older Meteosat-3, already 12 years old at launch and without the full capabilities of the newer satellites, was retained as an in-orbit spare.</article>
+
+
+	</tile>
+	<tile name="tl_period_1990.jpg">
+	</tile>
+	<tile name="tl_period_1991.jpg">
+	
+		<article type="prog" img="tl_period_1991_01" caption="Meteosat-5 integration. Image courtesy of ESA" title="Meteosat-5 launched" date="MARCH 1991">With the launch of Meteosat-5 on Ariane flight V42 EUMETSAT could, for the first time, guarantee a high level of operational performance with two upgraded satellites in orbit.</article>
+		
+		<article type="coop" img="tl_period_1991_02" caption="Meteosat-3 image from 50°W" title="Meteosat-3 redeployed" date="AUGUST 1991">Meteosat-3 was moved to 50°W in anticipation of a gap in the coverage normally provided by U.S. satellites. This was the start of the European Atlantic Data Coverage (ADC) project to ensure continuity of vital data over the western Atlantic and was seen as a reciprocal arrangement for the early actions of the USA in support of the Meteosat DCS mission.</article>
+		
+		<article type="prog" img="tl_period_1991_03" caption="Last production image from Meteosat-2" title="Meteosat-2 retired" date="DECEMBER 1991">Although its imaging radiometer was still fully operable, after ten years in orbit, Meteosat-2 had long since exhausted its on-board fuel, and was, with some regret, ejected from the geostationary orbit.</article>
+
+	</tile>
+	<tile name="tl_period_1992.jpg">
+
+		<article type="ops" title="MDD Operational" date="JANUARY 1992" img="tl_period_1992_01" caption="The first MDD station" >After more than a year of successful trials, the new Meteorological Data Distribution (MDD) mission was declared operational, transmitting meteorological information reliably from two sites (Bracknell, UK, and Rome, Italy, with the later addition of Toulouse, France) through Meteosat to user sites in Africa and elsewhere. By the end of 1995 it was in use in some 45 countries.</article>
+		
+		<article type="corp" title="First Cooperating State" img="tl_period_1992_02" caption="Flag of Czechoslovakia" date="FEBRUARY 1992">In the first formal relationship with one of the central European States, a Cooperation Agreement was established between EUMETSAT and Czechoslovakia. The agreement was signed by the representatives of the independent meteorological services of what were soon to become the Czech and Slovak Republics.</article>
+		
+		<article type="corp" title="New Member State" img="tl_period_1992_03" caption="Flag of Austria"date="DECEMBER 1992">Austria joined EUMETSAT to become our 17th Member State.</article>
+
+	</tile>
+	<tile name="tl_period_1993.jpg">
+
+		<article type="coop" title="Meteosat-3" date="FEBRUARY 1993">Meteosat-3 was moved to 75°W as a joint EUMETSAT/ESA/USA project called the eXtended-Atlantic Data Coverage mission (X-ADC) to replace a failed US satellite.</article>
+
+		<article type="corp" title="EUMETSAT Headquarters Construction Authorised" date="APRIL 1993" img="tl_period_1993_02" caption="The ground-breaking ceremony for the EUMETSAT Headquarters building">In another key decision, the Council authorised the contracts for the construction of the new headquarters, comprising the main building (funded mainly by Germany) and the operations wing (funded by all Member States). Works commenced in the third quarter.</article>
+
+		<article type="prog" title="Meteosat-6 Launched" img="tl_period_1993_03" caption="Meteosat-6 is launched from Kourou" date="NOVEMBER 1993">Meteosat-6 was successfully placed in orbit on Ariane flight V61 and underwent an extensive check-out procedure. The three first operational satellites supported all of the nominal missions but all suffered from some anomalies with the imagery. These could be compensated for by on-ground software but nevertheless required switching between satellites several times each year to maintain optimum operations.</article>
+
+		<article type="prog" title="EPS Programme Inception" date="NOVEMBER 1993">Agreement was reached on the start of a preparatory programme for the EUMETSAT Polar System (EPS) which will, when fully operational, provide high resolution global data.</article>
+
+	</tile>
+	<tile name="tl_period_1994.jpg">
+
+		<article type="prog" title="MSG Programme Inception" date="JUNE 1994">Agreement was reached on the start of the full programme for MSG. Provision was made for the procurement of three new satellites of an advanced design and their launch and operation for 12 years. These satellites make up the EUMETSAT flagship programme, providing improved data containing almost 20 times as much information as that from the first generation of satellites.</article>
+
+		<article type="corp" title="Staff Move into Headquarters" date="SEPTEMBER 1994" img="tl_period_1994_02" caption="EUMETSAT Headquarters during construction">The operations wing of the new headquarters was occupied by staff preparing the new EUMETSAT ground segment, while construction of the remaining part of the building continued.</article>
+
+		<article type="ops" title="Primary Ground Station Link-up" date="OCTOBER 1994" img="tl_period_1994_03" caption="Panoramic view of the Telespazio Fucino Space Centre, Italy" >The Meteosat images received by the new EUMETSAT Primary Ground Station in Fucino, Italy, were successfully transmitted through a commercial satellite link to the new operations centre in Darmstadt, Germany, and used for test and development of the Mission Control Centre.</article>
+	
+	</tile>
+	<tile name="tl_period_1995_p1.jpg">
+
+		<article type="coop" title="First Forum for Developing Companies" date="APRIL 1995">A first EUMETSAT Forum for developing countries was conducted in Niamey, Niger. The purpose was to open a direct channel of communications with the many users of EUMETSAT systems in developing countries, especially in Africa, to help improve the usefulness of these systems. Three more forums followed: Harare, Zimbabwe in 1996; Rabat, Morocco in 1998; and Kampala, Uganda in 2000.</article>
+
+		<article type="corp" title="Headquarters inaugurated" date="JUNE 1995" img="tl_period_1995_02" caption="The original EUMETSAT Headquarters building, on completion">The new headquarters was inaugurated and used for the 27th Meeting of the EUMETSAT Council. After nine years in Darmstadt, EUMETSAT had moved into its permanent home.</article>
+
+	</tile>
+	<tile name="tl_period_1995_p2.jpg">
+
+		<article type="coop" title="US Data Exchange Agreement" date="JULY 1995">An Agreement was established between EUMETSAT and the National Oceanic and Atmospheric Administration (NOAA), ensuring continued access by the USA to Meteosat imagery.</article>
+
+		<article type="corp" title="New Director-General" date="AUGUST 1995" img="tl_period_1995_03" caption="Dr Tillmann Mohr, second Director-General of EUMETSAT" >Dr. Tillmann Mohr (Germany) took up his responsibilities as EUMETSAT Director-General, replacing John Morgan after 9 years in office.</article>
+
+		<article type="ops" title="HRI Licensing Begins" date="SEPTEMBER 1995" >Technical control of the High Resolution Image dissemination service was implemented in order to safeguard the investments of Member States. Licences, many of them without fee, for the reception of these data were assigned to 35 countries in addition to the Member States.</article>
+
+		<article type="prog" title="Meteosat 3&4 reach end of life" date="NOVEMBER 1995">Meteosat-3 and Meteosat-4, having exhausted their on-board fuel, were ejected from geostationary orbit, each having significantly exceeded its design life in orbit.</article>
+
+		<article type="ops" title="Ground Segment Operational" date="DECEMBER 1995" img="tl_period_1995_07" caption="The original EUMETSAT Control Centre">The new EUMETSAT ground segment started full Meteosat operations, controlling Meteosat-5 and Meteosat-6 from the modern facilities in Darmstadt and a new ground station in Fucino.</article>
+
+	</tile>
+	<tile name="tl_period_1996.jpg">
+
+		<article type="coop" title="First Forum for Eastern Europe" date="MARCH 1996">The first EUMETSAT Forum for Eastern Europe was held in Darmstadt to facilitate the exchange of information with the many user organisations in these countries. Further forums have been held in Prague, Czech Republic, in 1998 and in Budapest, Hungary, in 2000.</article>
+
+	</tile>
+	<tile name="tl_period_1997.jpg">
+
+		<article type="coop" title="First SAF Inception" date="JANUARY 1997" img="tl_period_1997_01" caption="The NWC SAF Logo">Development commenced of the first Satellite Application Facility (SAF), on Nowcasting and Very Short Range Forecasting (NWC for short). This was set up as a pilot project in Madrid in cooperation with the Spanish Meteorological Service.</article>
+
+		<article type="coop" title="OSI SAF Inception" date="APRIL 1997" img="tl_period_1997_02" caption="The OSI SAF Logo">Development of the Satellite Application Facility on Ocean and Sea Ice (OSI SAF) commenced.</article>
+
+		<article type="prog" title="Meteosat-7 Launched" date="SEPTMEBER 1997" img="tl_period_1997_03" caption="Meteosat-7 lifts-off sucessfully">Meteosat-7 was launched and injected into geostationary orbit with such precision that its on-board fuel reserve was sufficient to serve it until at least the end of 2003, thus providing a safe transition period for users between the current system and MSG.</article>
+
+		<article type="coop" title="O3M SAF Inception" date="OCTOBER 1997" img="tl_period_1997_04" caption="The O3M SAF Logo">Development of the Satellite Application Facility (SAF) on Ozone Monitoring (O3M) commenced.</article>
+
+		<article type="corp" title="Headquarters Extension Inaugurated" date="DECEMBER 1997" img="tl_period_1997_5" caption="The Director-General accepts the symbolic 'key' to the North Wing extension">The 'North Wing' extension to the EUMETSAT headquarters was inaugurated. The new wing accommodates the EPS control centre and programme development staff.</article>
+
+	</tile>
+	<tile name="tl_period_1998_p1.jpg">
+	</tile>
+	<tile name="tl_period_1998_p2.jpg">
+
+		<article type="prog" title="Meteosat-5 operational at 63°E" date="JULY 1998" img="tl_period_1998_01" caption="Meteosat-5 operational image from 63°E over the Indian Ocean">Meteosat-5 became operational at 63°E over the Indian Ocean to support INDOEX, a multinational scientific experiment studying atmospheric pollution, solar radiation and the interaction of clouds over the Indian Ocean region. The in-orbit move of this back-up satellite commenced on 14 January and finished on 19 May 1998. This data provision was subsequently extended until the end of 2003 as the Indian Ocean Data Coverage (IODC) service.</article>
+
+		<article type="prog" title="EPS Programme approved" date="SEPTEMBER 1998" img="tl_period_1998_02" caption="The EUMETSAT EPS Metop-2 launch logo">The EUMETSAT Council approved the full EUMETSAT Polar System (EPS) programme. Although all Member States fully supported the programme, three had to hold their approvals in a state of ad referendum pending completion of approval procedures of their national administrations.</article>
+
+		<article type="coop" title="EUMETSAT/NOAA Cooperation Agreement" date="NOVEMBER 1998" img="tl_period_1998_03" caption="NOAA Logo">A Cooperation Agreement was signed in Washington, D.C., between EUMETSAT and the National Oceanographic and Atmospheric Administration (NOAA) for the Initial Joint Polar System to be operated by the two organisations.</article>
+
+		<article type="coop" title="Director-General becomes CEOS Chair" date="NOVEMBER 1998" img="tl_period_1998_04" caption="The CEOS Logo">November Dr. Tillmann Mohr, Director of EUMETSAT, elected as Chairman of the Committee for Earth Observation Satellites for 1999.</article>
+
+		<article type="corp" title="Successful ISO Audit" date="DECEMBER 1998">A successful audit performed by the Swiss Association for Quality and Management Systems registrar leading to the award of ISO 9001 certification to EUMETSAT in April 2000.</article>
+
+		<article type="coop" title="CM SAF Inception" date="DECEMBER 1998" img="tl_period_1998_06" caption="The CM SAF Logo">Development commenced on the Satellite Application Facility (SAF) for Climate Monitoring.</article>
+
+	</tile>
+	<tile name="tl_period_1999_p1.jpg">
+
+		<article type="coop" title="NWP SAF Begins" date="FEBRUARY 1999" img="tl_period_1997_01" caption="The NWC SAF Logo">Development commenced on the Satellite Application Facility (SAF) for Numerical Weather Prediction.</article>
+
+		<article type="coop" title="GRAS SAF Inception" date="APRIL 1999" >Development commenced on the Satellite Application Facility (SAF) for Global Navigation Satellite System Receiver for Atmospheric Sounding (GRAS) meteorology.</article>
+
+		<article type="prog" title="EPS Programme Finalised" date="JUNE 1999" >Full unconditional approval was attained for the EUMETSAT Polar System (EPS) programme with the removal of the final ad referendum status.</article>
+
+
+	</tile>
+	<tile name="tl_period_1999_p2.jpg">
+
+		<article type="corp" title="New Cooperating States" date="JULY 1999">Hungary and the Republic of Slovakia became the 2nd and 3rd Cooperating States of EUMETSAT.</article>
+
+		<article type="prog" title="Meteosat-6 rapid scanning pilot" date="SEPTEMBER 1999" img="tl_period_1999_04" caption="The MAP Logo">Meteosat-6, EUMETSAT’s stand-by satellite, was used for rapid scanning over the Alpine region for the Mesoscale Alpine Programme (MAP) intensive observation phase which took place from September to November.</article>
+
+		<article type="corp" title="EUMETSAT Convention Amended" date="NOVEMBER 1999">EUMETSAT’s amended Convention entered into force, widening the remit of the Organisation to include the operational monitoring of global climate changes.</article>
+
+		<article type="prog" title="Industrial Contract for EPS Signed" date="DECEMBER 1999" >The industrial contract for the development of the EUMETSAT Polar System satellites - named Metop - was signed between EUMETSAT, ESA and Matra Marconi Space.</article>
+
+	</tile>
+	<tile name="tl_period_2000.jpg">
+
+		<article type="corp" title="Poland joins EUMETSAT" date="JANUARY 2000" img="tl_period_2000_01" caption="Flag of Poland">Poland becomes the 4th Cooperating State of EUMETSAT.</article>
+		
+		<article type="corp" title="Staff numbers increase" date="OCTOBER 2000" img="tl_period_2000_02" caption="EUMETSAT Staff photo">As a consequence of taking over responsibility for routine operations and development of the MSG and EPS programmes, the number of posts grew to 156.</article>
+		
+		<article type="prog" title="EPS Ground System and Launch Facility" date="DECEMBER 2000">A contract was signed with Alcatel Space for the design, development and delivery of the Core Ground Segment (CGS) for the EUMETSAT Polar System. A launch services contract was signed with Starsem, the Russian/European joint venture, for launch of the Metop Satellite.</article>
+
+
+	</tile>
+	<tile name="tl_period_2001.jpg">
+	</tile>
+	<tile name="tl_period_2002.jpg">
+
+		<article type="corp" title="Croatia joins EUMETSAT" date="JANUARY 2002" img="tl_period_2002_01" caption="Flag of Croatia">Croatia became EUMETSAT's 5th Cooperating State.</article>
+
+		<article type="corp" title="Luxembourg joins EUMETSAT" date="JULY 2002" img="tl_period_2002_02" caption="Flag of Luxembourg">Luxembourg becomes EUMETSAT's 18th Member State.</article>
+
+		<article type="corp" title="Yugoslavia joins EUMETSAT" date="JULY 2002" >A Cooperating State Agreement is signed with the Federal Republic of Yugoslavia (now Serbia and Montenegro).</article>
+
+		<article type="prog" title="MSG-1 is launched" date="AUGUST 2002" img="tl_period_2002_03" vid="groups/cps/documents/multimedia/vid_tl_msg-1_launch.flv" caption="MSG-1 was launched from Kourou">On the 22 August, Meteosat-8 - the first of the Meteosat Second Generation (MSG) satellites - is launched into space from Kourou in French Guyana.</article>
+
+	</tile>
+	<tile name="tl_period_2003.jpg">
+
+		<article type="prog" title="MSG-1 starts dissemination" date="MAY 2003" img="tl_period_2003_01" caption="First Image from MSG-1">On 14 May at 9:00 a.m. EUMETSAT begins disseminating quarter hourly MSG-1 SEVIRI HRIT data to users via EUMETCast.</article>
+
+		<article type="coop" title="EUMETSAT/NOAA Joint Transition Activities agreement" date="JUNE 2003">EUMETSAT and the US National Oceanic and Atmospheric Administration NOAA signed the Joint Transition Activities Agreement (JTA) on Polar-Orbiting Operational Environment Satellite Systems. Among other items, the agreement calls for the provision of instruments from the U.S. for Metop-3, the third satellite of the EUMETSAT Polar System (EPS) Programme.</article>
+
+		<article type="corp" title="Slovenia joins EUMETSAT" date="JULY 2003" img="tl_period_2003_03" caption="The Director-General welcomes the Slovenian representatives for the flag raising ceremony at EUMETSAT HQ">Slovenia becomes EUMETSAT's 7th Cooperating State.</article>
+
+		<article type="corp" title="Romania joins EUMETSAT" date="AUGUST 2003" img="tl_period_2003_04" caption="Sighisoara, Romania">Romania becomes EUMETSAT's 8th Cooperating State.</article>
+
+		<article type="prog" title="EPS SSVT-1 performed" date="DECEMBER 2003">The first EUMETSAT Polar System Satellite System Validation Test (SSVT-1) is successfully performed. The test represents a significant milestone in the development of the EPS programme, bringing together various elements from the space segment, ground segment and operations for the first time.</article>
+
+	</tile>
+	<tile name="tl_period_2004_p1.jpg">
+
+		<article type="prog" title="MSG-1 becomes Meteosat-8" date="JANUARY 2004" img="tl_period_2004_01" caption="The audience enjoys a joke at a presentation to mark the Operational status of Meteosat-8">MSG-1 goes operational on 29 January. In keeping with tradition, the satellite is renamed Meteosat-8.</article>
+
+		<article type="ops" title="First Middle-East MSG training Session" date="FEBRUARY 2004" img="tl_period_2004_02" caption="Director of Operations, Mikael Rattenborg, and the Omani delegation">EUMETSAT held its first-ever training session in the Middle East for the Meteosat Second Generation (MSG-1) satellite.</article>
+
+		<article type="coop" title="NWP SAF goes operational" date="MARCH 2004" img="tl_period_1997_01" caption="The NWC SAF Logo">The Numerical Weather Prediction (NWP) Satellite Application facility (SAF) moved into the Initial Operations Phase, hosted by the Met Office (UK). This SAF will improve estimates of temperature, humidity, wind and ozone.</article>
+
+		<article type="coop" title="PUMA implementation begins" date="APRIL 2004" img="tl_period_2004_04" caption="The PUMA logo">The PUMA project, an initiative designed to prepare for the use of the Meteosat Second Generation (MSG) in Africa, entered the implementation phase, with the installation of the first PUMA receiving station in Nairobi, Kenya, in March 2004.</article>
+
+		<article type="ops" title="MSG PGS complete" date="APRIL 2004" img="tl_period_2004_05" caption="The inauguration ceremony of the MSG Primary Ground Station antenna at Usingen">The Meteosat Second Generation Primary Ground Station infrastructure at Usingen in Germany was completed.</article>
+
+	</tile>
+	<tile name="tl_period_2004_p2.jpg">
+
+		<article type="corp" title="Latvia joins EUMETSAT" date="JULY 2004" img="tl_period_2004_06" caption="Signature of the Cooperating agreement with Latvia">Latvia becomes EUMETSAT's 8th Cooperating State.</article>
+
+		<article type="corp" title="New Director-General" date="AUGUST 2004" img="tl_period_2004_07" caption="Dr Prahm (left) and Dr Mohr during the handover of the Director-Generalship">Dr Lars Prahm takes over as Director General of EUMETSAT, replacing Tillmann Mohr</article>
+
+		<article type="coop" title="NWC SAF inaugurated" date="SEPTEMBER 2004" img="tl_period_2004_08" caption="NWC SAF Logo">Spain officially inaugurated its Nowcasting Data and Sevices SAF - now known as the Support to Nowcasting and Very Short Range Forecasting (or NWC) SAF - which helps European forecasters predict unruly and fast-forming weather more accurately and more quickly than before.</article>
+
+		<article type="prog" title="MSG-4 Agreement signed" date="NOVEMBER 2004" >EUMETSAT and ESA signed an agreement to begin building the fourth satellite in the Meteosat Second Generation (MSG) series, ensuring continuity of satellite data services in Europe until at least 2018.</article>
+
+		<article type="corp" title="Lithuania joins EUMETSAT" date="DECEMBER 2004" img="tl_period_2004_10" caption="Signature of Cooperating State agreement with Lithuania">Lithuania becomes 9th EUMETSAT's Cooperating State. Cooperating State Agreement signed with Bulgaria.</article>
+
+
+
+	</tile>
+	<tile name="tl_period_2005_p1.jpg">
+
+		<article type="coop" title="EUMETSAT contributes to Tsunami warning system" date="FEBRUARY 2005" img="tl_period_2005_01" caption="Diagram of Tsunami warning system components">After a tsunami kills hundreds of thousands of people in Asia, EUMETSAT makes its Meteosat-5 satellite, situated above the Indian Ocean, available for use in a new global tsunami warning system.</article>
+
+		<article type="corp" title="Czech Republic joins EUMETSAT" date="MARCH 2005" img="tl_period_2005_02" caption="Old Town Square, Prague">The Czech Republic becomes EUMETSAT's 10th Cooperating State.</article>
+
+		<article type="corp" title="Bulgaria joins EUMETSAT" date="APRIL 2005" img="tl_period_2005_03" caption="Signature of the Cooperating State agreement with Bulgaria">10th Cooperating State Agreement signed with Bulgaria.</article>
+
+		<article type="corp" title="Final Headquarters extension completed" date="MAY 2005" img="tl_period_2005_04" caption="The finished Headquarters building in Darmstadt, Germany">The fourth and final extension to EUMETSAT’s Headquarters is inaugurated, completing the original plan of the building's architect.</article>
+
+		<article type="prog" title="MHS instrument launched" date="MAY 2005" img="tl_period_2005_05" caption="The NOAA-N Prime satellite is launched on a Delta II launcher, carrying MHS into orbit">Launch of the first flight hardware directly procured by EUMETSAT, The Microwave Humidity Souder (MHS) aboard NOAA-18, representing the first in-orbit component of the Initial Joint Polar-orbiting System (IJPS) with NOAA.</article>
+
+	</tile>
+	<tile name="tl_period_2005_p2.jpg">
+
+		<article type="coop" title="New SAF agreed" date="JULY 2005" img="tl_period_2005_06" caption="The H-SAF logo">Agreement on the development of a SAF to support Operational Hydrology and Water Management (H-SAF).</article>
+
+		<article type="coop" title="PUMA project completed" date="SEPTEMBER 2005" img="tl_period_2004_04" caption="The PUMA logo">The Preparation for Use of MSG in Africa (PUMA) project was completed, with all reception stations installed and training delivered to the designated African nations.</article>
+
+		<article type="ops" title="SATMANU project completed" date="OCTOBER 2005" img="tl_period_2005_08" caption="A training diagram from SatManu">Completion of the Manual of Synoptic Satellite Meteorology (SATMANU) project, after 10 years work by the international satellite meteorological community. SATMANU developed a wealth of satellite meteorology training resources and was the result of cooperation between ZAMG, KNMI, FMI and Croatia.</article>
+
+		<article type="prog" title="MSG-2 Launched" date="DECEMBER 2005" img="tl_period_2005_09" vid="groups/cps/documents/multimedia/vid_tl_msg-2_launch.flv" caption="MSG-2 successfully launched into space.">On 21st December, MSG-2 was successfully launched into space aboard an Ariane 5 launch vehicle from Kourou in French Guyana.</article>
+
+		<article type="corp" title="Iceland joins EUMETSAT" date="DECEMBER 2005" img="tl_period_2005_10" caption="Flag raising ceremony for Iceland">Iceland becomes EUMETSAT's 12th Cooperating State.</article>
+
+		<article type="coop" title="GEO 10 year plan approved" date="DECEMBER 2005" img="tl_period_2005_11" caption="The GEO Logo">The Group on Earth Observations 10 year implementation plan was approved and the first work programme agreed.</article>
+
+	</tile>
+	<tile name="tl_period_2006_p1.jpg">
+
+		<article type="corp" title="Slovakia becomes 19th Member State" date="JANUARY 2006" img="tl_period_2006_01" caption="The flag of Slovakia">The EUMETSAT community achieved a major milestone in its history when Slovakia became the first Cooperating State to graduate to full membership on 3 January 2006 - an impressively fast transition, as the republic only joined in July 1999.</article>
+
+		<article type="coop" title="Fast-track pilot GMES services" date="JANUARY 2006" img="tl_period_2006_02" caption="The GMES logo">EUMETSAT and the European Commission (EC) exchanged letters on 25 January, setting out their responsibilities and areas of cooperation in relation to Earth Observation and the Global Monitoring for Environment and Security (GMES) initiative. The letters also provide the basis for a future agreement between the two parties.</article>
+
+		<article type="prog" title="EUMETSAT/ESA EPS agreement" date="FEBRUARY 2006">At a meeting at ESA headquarters in Paris on the 23 February 2006, EUMETSAT and the European Space Agency (ESA) signed an update of the cooperation agreement for the EUMETSAT Polar System (EPS), originally formed in 1999. Under the terms of the new agreement, ESA are responsible for the development of the space segment and EUMETSAT for the overall system, including the launch services, the ground segment and the operations for the duration of the mission.</article>
+
+		<article type="coop" title="CoE Oman" date="FEBRUARY 2006" >Support to the setting up of a Centre of Excellence in Satellite Meteorology in Muscat, Oman for the benefit of Arab nations.</article>
+
+		<article type="prog" title="Meteosat-5 logs 15 years in orbit" date="MARCH 2006" img="tl_period_2006_05" caption="[caption]">Launched on the night of 2 March 1991, Meteosat-5 completed 15 years in orbit on 2 March 2006. The spacecraft acted as primary satellite for the 0° Service over Europe until 1997 and has continued to operate over the Indian Ocean at 63° East since 1998.</article>
+
+		<article type="corp" title="ISO Audit" date="MARCH 2006" img="tl_period_2006_06" caption="The ISO 9001 logo">A successful audit performed by the Swiss Association for Quality and Management Systems registrar lead to the award of the third successive ISO 9001 certification to EUMETSAT on 15 March 2006.</article>
+
+		<article type="prog" title="Consent To Ship Metop-2" date="APRIL 2006" img="tl_period_2006_07" caption="The Metop-2 payload module container is unloaded from an Antanov A10 transport plane at Baikonur">Metop-2, the first of the EPS satellites is shipped to Baikonur, Kazahkstan.</article>
+
+		<article type="prog" title="Europe and U.S secure OST Mission" date="APRIL 2006" img="tl_period_2006_08" caption="[caption]">
+On 11 April 2006, a cooperative agreement was signed between EUMETSAT, the French Centre National d’Etudes Spatiales (CNES), NASA and the National Oceanic and Atmospheric Administration (NOAA) of the USA, to secure the Jason-2 Programme, a new Earth observation mission dedicated to Ocean Surface Topography (OST) planned for launch in 2008.</article>
+
+		<article type="prog" title="Meteosat-7 0º services end" date="JUNE 2006" img="tl_period_2006_09" caption="[caption]">On 14 June 2006, at 09.00 UTC the Direct Dissemination from Meteosat-7 ceased, terminating Meteosat first generation services from 0º longitude.</article>
+
+	</tile>
+	<tile name="tl_period_2006_p2.jpg">
+
+		<article type="prog" title="EUMETSAT’s 20th Anniversary" date="July 2006" img="tl_period_2006_10" caption="[caption]"> – 
+In the two decades since its foundation on 19 June 1986 the organisation has become one of the world’s pre-eminent meteorological and environmental satellite organisations, serving the interests of Europe’s National Meteorological Services as well as an ever-growing community of international users. Council delegates and VIP guests, including representatives from the German federal and country governments, the World Meteorological Organization, the European Commission, the European Space Agency and the international meteorological community, attended an official programme of events celebrating the anniversary.</article>
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+	<tile name="tl_period_2007.jpg">
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+	<tile name="tl_period_2008.jpg">
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+	<tile name="tl_period_2009.jpg">
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+	<tile name="tl_period_2010.jpg">
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+	<tile name="tl_period_2011.jpg">
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+	<tile name="tl_period_2012.jpg">
+
+		<article type="prog" title="[Article Name]" date="[Article Date]" img="tl_period_" caption="[caption]">[Article Content]</article>
+
+	</tile>
+
+	<tile name="tl_period_future.jpg">
+		
+		<article type="corp" img="tl_asset_vid_01" vid="groups/cps/documents/multimedia/vid_tl_jason-2_launch.flv" caption="This is a video caption" title="Test Video - Jason-2 Launch" date="[DATE REQUIRED]">Here is a test video showing the launch and separation of the Jason-2 spacecraft.</article>
+
+		<article type="coop" img="tl_asset_vid_02" vid="groups/cps/documents/multimedia/test_kasatochi_550.flv" caption="This is a video caption" title="Test Video - Kasatochi Eruption" date="[DATE REQUIRED]">Here is a test video showing the spread of the SO2 plume from the eruption of Mt. Kasatochi in the Aleutian island chain during August 2008. This video is encoded at 550x380 pixels.</article>
+
+		<article type="prog" img="tl_asset_vid_03" vid="groups/cps/documents/multimedia/test_safnetwork_550.flv" caption="This is a video caption" title="Test Video - SAF Network" date="[DATE REQUIRED]">Here is a test video showing the EUMETSAT SAF network.</article>
+
+		<article type="ops" img="tl_asset_vid_04" vid="groups/cps/documents/multimedia/test_cgianim_550.flv" caption="This is a video caption" title="Test Video - CGI Animation - Jason-2 LRA" date="[DATE REQUIRED]">Here is a test video showing a CGI Animation of the OSTM/Jason-2 spacecraft's LRA in action.</article>
+
+		<article type="clim" img="tl_asset_vid_05" vid="groups/cps/documents/multimedia/test_cgianim2_550.flv" caption="This is a video caption" title="Test Video - CGI Animation - SEVIRI Radiometer" date="[DATE REQUIRED]">Here is a test video showing a CGI Animation of the SEVIRI Radiometer aboard MSG spacecraft.</article>
+
+	</tile>
+
+</content>
