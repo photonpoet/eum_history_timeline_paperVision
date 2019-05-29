@@ -1,0 +1,889 @@
+/* EUMETSAT 3D Interactive History Timeline - Phil Nolan, Pactum Ltd.
+  
+VERSIONING: 
+v0.8.5 - 02/05/2011
+Coded using AS3 and PaperVision3D 2.1
+Uses Tweener 1.33.74 - files are included in the Flash source library (I:\CIS\WebProjects\Multimedia\_source\Flash\actionscript\caurina). See http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-October/000293.html.
+
+*/
+
+import org.papervision3d.scenes.*;
+import org.papervision3d.cameras.*;
+import org.papervision3d.objects.*;
+import org.papervision3d.objects.special.*;
+import org.papervision3d.objects.primitives.*;
+import org.papervision3d.materials.*;
+import org.papervision3d.materials.special.*;
+import org.papervision3d.materials.VideoStreamMaterial;
+import org.papervision3d.lights.*;
+import org.papervision3d.render.*;
+import org.papervision3d.view.*;
+import org.papervision3d.events.*;
+import org.papervision3d.core.utils.*;
+
+import caurina.transitions.Tweener;
+import caurina.transitions.properties.*;
+caurina.transitions.properties.DisplayShortcuts.init();
+caurina.transitions.properties.FilterShortcuts.init();
+caurina.transitions.properties.ColorShortcuts.init();
+
+
+import flash.display.BlendMode;
+import flash.display.Stage;
+import flash.display.StageDisplayState;
+import flash.events.MouseEvent;
+import flash.media.Video;
+import flash.net.NetConnection;
+import flash.net.NetStream;
+import flash.filters.BlurFilter;
+import flash.filters.BitmapFilterQuality;
+
+stop();
+
+/// Global variables init.
+var viewport:Viewport3D;
+var renderer:BasicRenderEngine;
+var scene:Scene3D;
+var camera:Camera3D;
+var fsMult:Number = 1; // Zoom multiplier for Fullscreen mode
+var zoomVar:uint = 8; // Initial Zoom level
+var vpRightMax:Number = -1000; // Defines maximum horizontal scroll value, based on number of years loaded (set in 'processXMLrecords' routine)
+var vpRightMaxOrig:Number; // Stores the original maximum horizontal scroll value for use by the 'createArts' and 'killArts' routines
+var isMouseDown:Boolean = false; // Mouse drag flag
+var mouseOrigin:Number; // Value to store mouse position on click, to facilitate view dragging by mouse
+var viewportX:int= -650; // Initial position of camera X
+var viewportY:int=0; // Initial position of camera y
+var tilesArray:Array = new Array();
+var artsArray:Array = new Array();
+var tiles:MovieClip = new MovieClip();
+var loaderDisplay:LoaderDisplay = new LoaderDisplay(); // Loader display for tiles.
+var tilesLoaded:uint = 0; // Loader display for tiles.
+var tilesTotal:uint; // Stores total number of historical period tiles
+var myPlanes:Array=new Array();
+var myArtPlanes:Array=new Array();
+var currentItem:Plane; // Stores selected historical period
+var currentArt; // Stores selected article
+var currentPopup; // Stores selected popup
+var tempItem; // Temporary stores the reference to the currently selected article - used by routines for error and completion checks
+var artCount:uint; // Stores number of articles in XML
+var killArtCount:uint; // Stores number of articles to destroy
+var xml_loader:URLLoader = new URLLoader();
+var xml:XML;
+
+///////////////////////////////////////////////////////////////////
+
+function init():void {
+	stage.quality = StageQuality.HIGH;
+	stage.scaleMode = StageScaleMode.NO_SCALE;
+	stage.align = StageAlign.TOP_LEFT;
+//	stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler); // Allows control of view by mouse
+	stage.addEventListener(MouseEvent.MOUSE_UP, MOUSE_UP );
+	stage.addEventListener(MouseEvent.MOUSE_DOWN, MOUSE_DOWN );
+	stage.addEventListener(Event.RESIZE, resizeStage);
+	stage.dispatchEvent(new Event(Event.RESIZE));
+
+	init3D();
+	loadXml("groups/cps/documents/assets/xml_pres_timeline(local).xml"); // Path to XML file (Local Test Environment
+	//loadXml("http://www.eumetsat.int/groups/cps/documents/assets/xml_pres_timeline.xml"); // Path to XML file (Production Environment
+	fullsize_mc.buttonMode = true;
+	fullsize_mc.useHandCursor = true;
+	fullsize_mc.mouseChildren=false;
+	fullsize_mc.visible = stage.hasOwnProperty("displayState");
+	fullsize_mc.addEventListener(MouseEvent.CLICK, fullsize_CLICK);
+	fullsize_mc.addEventListener(MouseEvent.ROLL_OVER,ROLL_OVER);
+	fullsize_mc.addEventListener(MouseEvent.ROLL_OUT,ROLL_OUT);
+	fullsize_mc.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT));
+	reset_mc.buttonMode = true;
+	reset_mc.useHandCursor = true;
+	reset_mc.mouseChildren=false;
+	reset_mc.addEventListener(MouseEvent.ROLL_OVER,ROLL_OVER);
+	reset_mc.addEventListener(MouseEvent.ROLL_OUT,ROLL_OUT);
+	reset_mc.visible=false;
+}
+
+function init3D():void {
+	viewport = new Viewport3D(0,0,true,true,false,false);
+	addChild(viewport); 
+	renderer= new BasicRenderEngine();
+	scene = new Scene3D();
+	camera = new Camera3D();
+	camera.zoom = 8*fsMult;
+	camera.focus = 100; 
+	camera.localRotationY = -45;
+	camera.extra = {goPosition: new DisplayObject3D(), goTarget: new DisplayObject3D()};
+	camera.extra.goPosition.copyPosition(camera); 
+	
+	addEventListener(Event.ENTER_FRAME, render);
+
+	
+}
+
+function render(e:Event):void // Scene rendering routine
+{
+	// Move viewport based on mouse position
+	if ((isMouseDown == true)&&(viewportX>-650)&&(viewportX<vpRightMax)){
+		viewportX += ((mouseOrigin-stage.mouseX)/2); // Move camera X-axis based on mouse input.
+	}
+	if (viewportX>=vpRightMax){
+		viewportX=(vpRightMax-1);
+	}
+	if (viewportX<=-650){
+		viewportX=-649;
+	}
+
+	// Inertial damping
+	camera.zoom += (zoomVar - camera.zoom )*.3;
+	camera.x += (viewportX - camera.x)*.3;
+	camera.y += (viewportY - camera.y)*.3;
+
+	renderer.renderScene(scene, camera, viewport);
+}
+
+function loadXml(xml:String) {
+	xml_loader.addEventListener(Event.COMPLETE, xmlLoaded);
+	xml_loader.load(new URLRequest(xml));
+}
+
+function xmlLoaded(e:Event) {
+	try {
+		xml = XML(e.target.data);
+		trace("xmlLoaded(): xml loaded");
+		processRecords();
+	} catch (e:Error) {
+		trace("xmlLoaded(): error = " + e.message);
+		return;
+	}
+}
+
+/* Camera control by mouse wheel
+function mouseWheelHandler(event:MouseEvent):void {
+  trace("mouseWheelHandler delta: " + event.delta);
+	
+	if ((event.delta>0)&&(viewportX<vpRightMax)) {
+		viewportX += event.delta*100;
+		trace("mouseWheel up. ViewportX: " + viewportX);
+	}
+	if ((event.delta<0)&&(viewportX>-650)) {
+		viewportX -= -event.delta*100;
+		trace("mouseWheel down. ViewportX: " + viewportX);
+	}
+} */
+
+// Camera control by mouse drag
+function MOUSE_DOWN(e:MouseEvent):void{
+	if (isMouseDown==false){
+		mouseOrigin=(stage.mouseX);
+		isMouseDown = true;
+	}
+}
+function MOUSE_UP(e:MouseEvent):void{
+	if (isMouseDown==true){
+		isMouseDown = false;
+	}
+}
+
+
+function CLICK(e:MouseEvent):void{
+	//trace("art click");
+	e.target.buttonMode=false;
+}
+function ROLL_OVER(e:MouseEvent):void{
+	//trace("art rollover");
+	e.target.gotoAndStop(2);
+	
+}
+function ROLL_OUT(e:MouseEvent):void{
+	//trace("art rollout");
+	e.target.gotoAndStop(1);
+}
+
+function PLANE_ROLL_OVER(e:InteractiveScene3DEvent):void  
+{   
+	viewport.buttonMode = true;
+	//Tweener.addTween(e.target,{_blur_blurX:100,time:0.2,transition:"easeOutExpo"});
+	//trace("Time Period rollover");
+	//trace(e.target);
+	
+}   
+           
+function PLANE_ROLL_OUT(e:InteractiveScene3DEvent):void  
+{   
+	viewport.buttonMode = false;
+	//Tweener.addTween(e.target,{_blur_blurX:0,time:0.2,transition:"easeOutExpo"});
+	//trace("Time Period rollout");
+} 
+
+function PLANE_CLICK(e:InteractiveScene3DEvent):void
+{
+	killPopup();
+	trace("Time Period click");
+	zoomVar= 8*fsMult;
+	viewportX = ((e.target.x)-750);
+	viewportY = ((e.target.y)-220);
+	Tweener.addTween(camera,{localRotationY:-45,time:0.8,transition:"easeOutExpo"}); // Rotate camera to isometric angle
+	tempItem=e.target;
+	
+	if (currentItem==e.target){
+		reset_mc.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+		viewportY = 0;
+	}else{
+		
+		// If there are arts on the stage, kill them.
+		if (myArtPlanes.length>0){
+			killArtPlanes();
+			
+		}else{
+			activateItem(e.target);
+		}
+		reset_mc.addEventListener(MouseEvent.CLICK, reset);
+	}
+	
+	
+}
+
+
+function SUB_PLANE_ROLL_OVER(e:InteractiveScene3DEvent):void  
+{   
+	trace("art plane over");
+	viewport.buttonMode = true;
+	//e.target.material.animated = true;
+	//Tweener.addTween(e.target,{scaleX:1.05, scaleY:1.05,time:0.3,transition:"easeOutExpo"});
+	
+}   
+           
+function SUB_PLANE_ROLL_OUT(e:InteractiveScene3DEvent):void  
+{   
+	trace("art plane out");
+	viewport.buttonMode = false; 
+	//Tweener.addTween(e.target,{scaleX:1, scaleY:1,time:0.3,transition:"easeOutExpo", onComplete:function(){e.target.material.animated = false;}});
+} 
+
+function SUB_PLANE_CLICK(e:InteractiveScene3DEvent):void
+{
+	killPopup();
+	trace("art plane click: "+e.target);
+	activateArtItem(e.target);
+	zoomVar= 10*fsMult;
+	viewportX = (e.target.x);
+	viewportY = (e.target.y);
+}
+
+// Full size listeners.
+function fullsize_CLICK(e:MouseEvent):void {
+	if( stage.hasOwnProperty("displayState")){
+		if( stage.displayState != StageDisplayState.FULL_SCREEN ){
+			stage.displayState = StageDisplayState.FULL_SCREEN;
+			fsMult = 1.3;
+		}else{
+			stage.displayState = StageDisplayState.NORMAL;
+			fsMult =1;
+		}
+	}else{
+		stage.dispatchEvent(new Event(Event.RESIZE));
+	}
+}
+
+function resizeStage(e:Event):void {
+	trace("resized");
+	bg_mc.width = stage.stageWidth;
+	bg_mc.height = stage.stageHeight;
+	//Reposition buttons
+	fullsize_mc.x = (stage.stageWidth-40); 
+	fullsize_mc.y = (stage.stageHeight-40);
+	reset_mc.x = (stage.stageWidth-80);
+	reset_mc.y = (stage.stageHeight-40);
+}
+
+function reset(e:MouseEvent):void {
+	trace("reset");
+	zoomVar= 8*fsMult;
+	viewportY = 0;
+	viewportX = ((tempItem.x)-650);
+	Tweener.addTween(camera,{localRotationY:-45,time:0.8,transition:"easeOutExpo"}); // Rotate camera to isometric angle
+	tempItem = null;
+	killPopup();
+	killArtPlanes();
+	deActivateItem();
+	reset_mc.visible=false;
+	reset_mc.removeEventListener(MouseEvent.CLICK, reset);
+}
+
+// Create Articles
+function createArts():void {
+	var currentTile = currentItem.extra.goto.tileno; // XML node number to reference articles
+	var artList:XMLList = xml.tile[currentTile].article;
+	vpRightMaxOrig = vpRightMax;
+	vpRightMax+=650;
+	trace("vpRightMax: "+vpRightMax);
+	artCount = artList.length();
+	loaderDisplay.text_mc.myText.htmlText = "Loading Articles: 1 of "+artCount;
+	var xPos:Number = currentItem.x; // To align articles to right of current timelines period.
+	var origXPos:Number = currentItem.x; // Determines original xPosition to allow new rows
+	var yPos:Number = currentItem.y - 240;
+	var zPos:Number = currentItem.z;
+	var colLimit:uint = artCount;
+	var col:uint=0;
+	var xspacing:uint = 320;
+	var yspacing:uint = 260;
+	var imgPath:String = xml.attribute("imgPath"); // Path to image resources
+	
+	
+	
+	for (var i:uint = 0;i<artCount;i++){ 
+		// Load XML data into variables
+		var artType = xml.tile[currentTile].article[i].attribute("type");
+		var artImg:String = xml.tile[currentTile].article[i].attribute("img");
+		var artVid:String = xml.tile[currentTile].article[i].attribute("vid");
+		var artTitle:String = xml.tile[currentTile].article[i].attribute("title");
+		var artDate:String = xml.tile[currentTile].article[i].attribute("date");
+		var artBody:String = xml.tile[currentTile].article[i];
+		
+		// Create Article
+		var art:Article = new Article();
+		art.mouseChildren=false;
+		art.smoothing=true;
+		art.name = "art"+i;
+		art.stroke_mc.visible=false;
+		var mat:MovieMaterial = new MovieMaterial(art);
+		
+		// Add content to Article
+		art.artTitle_txt.text = artTitle;
+		art.artDate_txt.text = artDate;
+		art.artBody_txt.text = artBody;
+		
+		// Check if article has image or video associated with it
+		if (artImg != ""){ // If it does, load preview thumbnail and place button
+			var imgLoader:Loader = new Loader();
+			imgLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,loadProgressListener);
+			imgLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadCompleteListener);
+			imgLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadIOErrorListener);
+			var myButton:prevButton = new prevButton();
+			art.addChild(myButton);
+			myButton.x = 248;
+			myButton.y = 34;
+			myButton.width = 65;
+			myButton.height = 65;
+			art.imgPreview_mc.addChild(imgLoader);
+			var thumbName = imgPath + artImg+".jpg";
+			imgLoader.load(new URLRequest(thumbName));
+			
+			// Add button over preview thumbnail to activate popup
+			var myPrevButton:prevButton = new prevButton();
+			art.addChild(myPrevButton);
+			myPrevButton.x = 248;
+			myPrevButton.y = 34;
+			myPrevButton.width = 65;
+			myPrevButton.height = 65;
+			myPrevButton.buttonMode = true;
+			myPrevButton.useHandCursor = true;
+			myPrevButton.mouseChildren=false;
+			myPrevButton.addEventListener(MouseEvent.ROLL_OVER,button_ROLL_OVER);
+			myPrevButton.addEventListener(MouseEvent.ROLL_OUT,button_ROLL_OUT);
+			// Set whether popup will be an image or a video
+			if (artVid != ""){
+				myPrevButton.addEventListener(MouseEvent.CLICK,vidButton_CLICK);
+			} else {
+				myPrevButton.addEventListener(MouseEvent.CLICK,button_CLICK);
+			}			
+			// Set colour branding of button according to article type
+			var myButColor:ColorTransform = myPrevButton.transform.colorTransform;
+			if(artType=="corp"){
+				myButColor.color = 0x00B9E4;
+			}
+			if(artType=="coop"){
+				myButColor.color = 0xC4262E;
+			}
+			if(artType=="clim"){
+				myButColor.color = 0xBED600;
+			}
+			if(artType=="ops"){
+				myButColor.color = 0xFF5800;
+			}
+			if(artType=="prog"){
+				myButColor.color = 0xFCD900;
+			}
+			myPrevButton.transform.colorTransform = myButColor;
+			//createPopup(xPos,yPos,zPos,currentTile,i)
+		}
+		
+		// Set colour branding of article according to article type
+		var myArtColor:ColorTransform = art.artType_mc.transform.colorTransform;
+		//var myDateColor:ColorTransform = art.artDate_txt.transform.colorTransform;
+		if(artType=="corp"){
+			myArtColor.color = 0x00B9E4;
+			//myDateColor.color = 0x00B9E4;
+			//art.artType_txt.text = "CORPORATE";
+		}
+		if(artType=="coop"){
+			myArtColor.color = 0xC4262E;
+			//myDateColor.color = 0xC4262E;
+			//art.artType_txt.text = "COOPERATION";
+		}
+		if(artType=="clim"){
+			myArtColor.color = 0xBED600;
+			//myDateColor.color = 0xBED600;
+			//art.artType_txt.text = "CLIMATE";
+		}
+		if(artType=="ops"){
+			myArtColor.color = 0xFF5800;
+			//myDateColor.color = 0xFF5800;
+			//art.artType_txt.text = "OPERATIONS";
+		}
+		if(artType=="prog"){
+			myArtColor.color = 0xFCD900;
+			//myDateColor.color = 0xFCD900;
+			//art.artType_txt.text = "PROGRAMMES";
+		}
+		art.artType_mc.transform.colorTransform = myArtColor;
+		//art.artDate_txt.transform.colorTransform = myDateColor;
+		
+		// Set up PV3D plane to hold each article
+		mat.interactive = true;
+		mat.smooth = true;
+		mat.animated = true;
+		var plane:Plane = new Plane(mat, 320, 250,3,3);
+		scene.addChild(plane);
+		plane.visible=false;
+		myArtPlanes[i]=plane;
+		
+		plane.x = currentItem.x;
+		plane.y = currentItem.y;
+		plane.z = currentItem.z+200;
+		
+		var gotoData :MovieClip = new MovieClip();
+
+		gotoData.x = xPos;
+		gotoData.y = yPos;
+		gotoData.z = 0;
+		gotoData.artno = [i]; // Assigns a number to each article - essential for the 'Create Popup' routine
+	
+		plane.extra = {goto:gotoData};
+		
+		vpRightMax = vpRightMax + xspacing; // Defines maximum right-hand scrollable limit, based on number of articles defined in the XML file.
+		trace("vpRightMax: "+vpRightMax);
+		
+		if (col<colLimit) {
+			col++;
+			xPos = xPos + xspacing;
+		} else {
+			yPos = yPos - yspacing;
+			xPos = origXPos;
+			col = 0;
+		}
+		
+	}
+	initArtPlanes();
+}
+
+// Article popup preview button actions
+function button_ROLL_OVER(e:MouseEvent):void{
+	e.target.gotoAndStop(2);
+
+}
+function button_ROLL_OUT(e:MouseEvent):void{
+	e.target.gotoAndStop(1);
+}
+function button_CLICK(e:MouseEvent):void{
+	zoomVar= 14*fsMult;
+	createPopup();
+}
+function vidButton_CLICK(e:MouseEvent):void{
+	zoomVar=14*fsMult;
+	createVidPopup();
+}
+
+// Add articles to stage and functions to allow interactivity
+function initArtPlanes():void {
+	for (var i:uint = 0;i<myArtPlanes.length;i++){
+		myArtPlanes[i].addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, SUB_PLANE_CLICK);
+		myArtPlanes[i].addEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+		myArtPlanes[i].addEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+		myArtPlanes[i].visible=true;
+		Tweener.addTween(myArtPlanes[i],{x:myArtPlanes[i].extra.goto.x, y:myArtPlanes[i].extra.goto.y,z:myArtPlanes[i].extra.goto.z,time:0.9,delay:i/16,transition:"easeOutBack"});
+	}
+}
+// Remove articles and associated interactivity from the stage
+function killArtPlanes():void {
+	//trace("kill");
+	killArtCount = 0;
+	vpRightMax = vpRightMaxOrig;
+	//trace("vpRightMax: "+vpRightMax);
+	for (var i:uint = 0;i<myArtPlanes.length;i++){
+		myArtPlanes[i].removeEventListener(InteractiveScene3DEvent.OBJECT_CLICK, SUB_PLANE_CLICK);
+		myArtPlanes[i].removeEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+		myArtPlanes[i].removeEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+		myArtPlanes[i].material.animated = false;
+		Tweener.addTween(myArtPlanes[i],{x:currentItem.x, y:currentItem.y, z:currentItem.z+10,time:0.3, delay:i/16,transition:"easeInBack",onComplete:function(){scene.removeChild(this);checkArts();}});
+	}
+}
+function checkArts():void {
+	killArtCount++;
+	if (killArtCount == artCount){
+		killArtCount=0;
+		myArtPlanes = [];
+		if (tempItem){
+			activateItem(tempItem);
+		}
+		
+	}
+}
+
+// Popup Functions
+
+// Create Image Popup
+function createPopup():void {
+	killPopup();
+	trace("createPopup called");
+	trace("<Init>");
+	var currentTile = currentItem.extra.goto.tileno; // Stores number of current historical period
+	trace("currentTile: "+currentTile);
+	var artNo = currentArt.extra.goto.artno; // Stores number of current article
+	trace("currentArt: "+currentArt);
+	var assetPath:String = xml.attribute("imgPath"); // Path to Resource
+	trace("assetPath: "+assetPath);
+	var popAsset:String = xml.tile[currentTile].article[artNo].attribute("img"); // Path to popup asset
+	trace("popAsset: "+popAsset);
+	var popCaption:String = xml.tile[currentTile].article[artNo].attribute("caption"); // Path to popup asset
+	trace("popCaption: "+popCaption);
+	trace("</Init>");
+	
+	// Create object and material and load popup content
+	var pop:Popup = new Popup();
+	pop.mouseChildren=false;
+	var popupMat:MovieAssetMaterial = new MovieAssetMaterial("Popup", true, true, true, true); // LinkageID:String, transparent:Boolean, animated:Boolean, createUnique:Boolean, precise: Boolean
+	trace("Created new material: "+popupMat);
+	// Populate popup material
+	var myClip = MovieClip(popupMat.movie);
+	var myCaption = myClip.getChildByName("caption_txt");
+	var myAsset = myClip.getChildByName("imageholder_mc");
+	trace("Added Caption to text field");
+	myCaption.text = popCaption;
+	var popLoader:Loader = new Loader();
+	trace("Creating asset loader");
+	popLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,loadProgressListener);
+	popLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadCompleteListener);
+	popLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadIOErrorListener);
+	myAsset.addChildAt(popLoader,myAsset);
+	var asset = assetPath+popAsset+"_big.jpg";
+	popLoader.load(new URLRequest(asset));
+	trace("Loaded asset");
+	
+	// Create PV3D plane to hold material
+	trace("Creating Plane");
+	popupMat.interactive = true;
+	popupMat.smooth = true;
+	//popupMat.animated = true;
+	var popup:Plane = new Plane(popupMat, 320, 220,1,1);
+	scene.addChild(popup);
+	popup.visible=false;
+	popup.x = currentArt.extra.goto.x;
+	popup.y = currentArt.extra.goto.y;
+	popup.z = currentArt.extra.goto.z+10;
+	trace("Adding interactivity to plane");
+	popup.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, POPUP_CLICK);
+	popup.addEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+	popup.addEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+	popup.visible=true;
+	
+	Tweener.addTween(popup,{x:currentArt.extra.goto.x, y:currentArt.extra.goto.y,z:currentArt.extra.goto.z-200,time:0.5});
+	currentPopup = popup;
+}
+
+// Create Video Popup
+function createVidPopup():void {
+	killPopup();
+	trace("createVidPopup called");
+	trace("<Init>");
+	var currentTile = currentItem.extra.goto.tileno; // Stores number of current historical period
+	trace("currentTile: "+currentTile);
+	var artNo = currentArt.extra.goto.artno; // Stores number of current article
+	trace("currentArt: "+currentArt);
+	var popAsset:String = xml.tile[currentTile].article[artNo].attribute("vid"); // Path to popup asset
+	trace("popAsset: "+popAsset);
+	var popCaption:String = xml.tile[currentTile].article[artNo].attribute("caption"); // Path to popup asset
+	trace("popCaption: "+popCaption);
+	trace("</Init>");	
+	
+	// Set up video
+	
+	var customClient:Object = new Object();
+	customClient.onMetaData = metaDataHandler;
+	
+	trace("Connecting to video");
+	var conn:NetConnection = new NetConnection();
+	conn.connect(null);
+	
+	var stream:NetStream = new NetStream(conn);
+	stream.client = customClient;
+	stream.play(popAsset);
+	
+	var video:Video = new Video(550,380);
+	video.smoothing = true;
+	video.attachNetStream(stream);
+	video.width = 550;
+	video.height = 380;
+	
+	// Create PV3D video material
+	trace("Creating video material");
+	var vidMat:VideoStreamMaterial = new VideoStreamMaterial (video, stream, true);
+	vidMat.animated = true;
+	vidMat.interactive = true;
+	//vidMat.smooth = true;
+	
+	// Create PV3D plane to hold material
+	trace("Creating Plane");
+	var vidpop:Plane = new Plane(vidMat, 320, 220,1,1);
+	scene.addChild(vidpop);
+	vidpop.visible=false;
+	vidpop.x = currentArt.extra.goto.x;
+	vidpop.y = currentArt.extra.goto.y;
+	vidpop.z = currentArt.extra.goto.z+10;
+	trace("Adding interactivity to plane");
+	vidpop.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, POPUP_CLICK);
+	vidpop.addEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+	vidpop.addEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+	vidpop.visible=true;
+	
+	Tweener.addTween(vidpop,{x:currentArt.extra.goto.x, y:currentArt.extra.goto.y,z:currentArt.extra.goto.z-200,time:0.5});
+
+	currentPopup = vidpop;
+}
+// Controls what happens to the metadata in a video object
+function metaDataHandler(infoObject:Object):void {
+	trace('metaDataHandler= ',infoObject);
+}
+
+// Kill Popup
+function killPopup():void {
+	if (currentPopup!=null){
+		trace("kill Popup");
+		currentPopup.removeEventListener(InteractiveScene3DEvent.OBJECT_CLICK, POPUP_CLICK);
+		currentPopup.removeEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+		currentPopup.removeEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+		currentPopup.material.animated = false;
+		scene.removeChild(currentPopup);
+		//Tweener.addTween(currentPopup,{x:currentArt.extra.goto.x, y:currentArt.extra.goto.y, z:currentArt.extra.goto.z+10,time:0,onComplete:function(){scene.removeChild(this);}});
+		currentPopup=null;
+	}
+}
+//Popup click 
+function POPUP_CLICK(e:InteractiveScene3DEvent):void {
+	zoomVar= 10*fsMult;
+	killPopup();
+}
+
+// Activate item.
+function activateItem(item):void {
+	if (currentItem) {
+		deActivateItem();
+	}
+	reset_mc.visible=true;
+	currentItem = item;
+	Tweener.removeTweens(currentItem);
+	Tweener.addTween(currentItem,{z:200,time:1}); // moves plane out of alignment
+	
+	createArts();
+	
+	for (var i:uint=0;i<myPlanes.length;i++){
+		if (myPlanes[i]!==currentItem){
+			Tweener.addTween(myPlanes[i],{z:200,time:1});
+		}
+	}
+	
+}
+function deActivateItem():void {
+	Tweener.removeTweens(currentItem);
+	Tweener.addTween(currentItem,{z:0,time:1}); // moves plane back into alignment
+
+	for (var i:uint=0;i<myPlanes.length;i++){
+		if (myPlanes[i]!==currentItem){
+			Tweener.addTween(myPlanes[i],{z:0,time:1});
+		}
+	}
+	currentItem = undefined;
+}
+
+
+// Activate art item.
+function activateArtItem(item):void {
+	if (currentArt) {
+		deActivateArtItem();
+	}
+	currentArt = item;
+	currentArt.dispatchEvent(new InteractiveScene3DEvent(InteractiveScene3DEvent.OBJECT_OUT));
+	currentArt.removeEventListener(InteractiveScene3DEvent.OBJECT_CLICK, SUB_PLANE_CLICK);
+	currentArt.removeEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+	currentArt.removeEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+	currentArt.material.movie.mouseEnabled = true;
+	currentArt.material.movie.buttonMode = true;
+	currentArt.material.movie.useHandCursor = true;
+	currentArt.material.movie.mouseChildren=true;
+	currentArt.material.animated = true;
+	Tweener.addTween(currentArt,{x:currentArt.extra.goto.x, y:currentArt.extra.goto.y,z:currentArt.extra.goto.z-100,time:0.5,transition:"easeOutBack"});
+	Tweener.addTween(camera,{localRotationY:0,time:0.8,transition:"easeOutExpo"}); // Rotate camera to plane angle from isometric angle
+}
+function deActivateArtItem():void {
+	currentArt.material.movie.mouseEnabled = false;
+	currentArt.material.movie.buttonMode = false;
+	currentArt.material.movie.useHandCursor = false;
+	currentArt.material.movie.mouseChildren=false;
+	currentArt.material.animated = true;
+	//currentItem.mouseEnabled = true;
+	currentArt.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, SUB_PLANE_CLICK);
+	currentArt.addEventListener(InteractiveScene3DEvent.OBJECT_OVER, SUB_PLANE_ROLL_OVER);
+	currentArt.addEventListener(InteractiveScene3DEvent.OBJECT_OUT, SUB_PLANE_ROLL_OUT);
+	//currentItem.mouseChildren = false;
+	//currentItem.useHandCursor = true;
+	Tweener.addTween(currentArt,{x:currentArt.extra.goto.x, y:currentArt.extra.goto.y,z:currentArt.extra.goto.z,time:0.5,transition:"easeOutBack"});
+	currentArt = undefined;
+}
+
+// Process xml records and create timeline tiles
+function processRecords():void{
+	
+	// Add LoaderDisplayThumbs.
+	addChild(loaderDisplay);
+	loaderDisplay.x = 2
+	loaderDisplay.y = 40;
+	
+	// Path for loading tiles.
+	var imgPath:String = xml.attribute("imgPath");
+	var tileList:XMLList = xml.tile;
+	loaderDisplay.text_mc.myText.htmlText = "Loading Items: 1 of "+tileList.length();
+	var xPos:Number = 0; //OC val: -340
+	var initXPos:Number = xPos; // Stores initial postion of tiles to enable clean wrap to new rows
+	var yPos:Number = 0; //OC val: 240
+	var colLimit:uint = 60; // Defines number of items in a single row. Once exceeded, a new row is started below the first.
+	var col:uint = 0;
+	var xspacing:uint = 320; // Width between tiles. For a 'grid' effect, make 10-20px larger than tile size 
+	var yspacing:uint = 320; // Height between tiles. As above.
+	tilesTotal = tileList.length();
+	
+	for (var i:uint=0;i<tilesTotal;i++){
+		var holder:Holder = new Holder();
+		holder.smoothing=true;
+		
+		var mat:MovieMaterial = new MovieMaterial(holder);
+		mat.interactive = true;
+		mat.smooth = true;
+		mat.animated = true;
+		
+		var plane:Plane = new Plane(mat, 320, 300,3,4); // Creates the tiles. The dimensions here must match the dimensions of the symbol 'mcHolder'.
+		plane.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, PLANE_CLICK);
+		plane.addEventListener(InteractiveScene3DEvent.OBJECT_OVER, PLANE_ROLL_OVER);
+		plane.addEventListener(InteractiveScene3DEvent.OBJECT_OUT, PLANE_ROLL_OUT);
+		plane.visible=false;
+		myPlanes[i]=plane;
+		
+		var gotoData :MovieClip = new MovieClip();
+	
+		gotoData.x = xPos;
+		gotoData.y = yPos;
+		gotoData.z = 0;
+		gotoData.tileno = [i]; // Assigns a number to each tile - essential for the 'Create Arts' routine
+	
+		plane.extra = {goto:gotoData};
+		plane.z = 0;
+		scene.addChild(plane);
+		
+		if (col<colLimit) {
+			col++;
+			xPos = xPos + xspacing;
+			vpRightMax = vpRightMax + xspacing; // Defines maximum right-hand scrollable limit, based on number of years defined in the XML file.
+		} else {
+			yPos = yPos - yspacing;
+			xPos = initXPos;
+			col = 0;
+		}
+		
+		var tileLoader:Loader = new Loader();
+		tilesArray[i] = tileLoader;
+		tileLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,loadProgressListener);
+		tileLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadCompleteListener);
+		tileLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadIOErrorListener);
+		holder.addChildAt(tileLoader,holder.getChildIndex(holder.stroke_mc));
+		var tileName = imgPath + tileList[i].attribute("name");
+		tileLoader.load(new URLRequest(tileName));
+		
+		
+	}
+}
+
+
+// Loader listeners for tiles.
+function loadProgressListener(e:ProgressEvent):void {
+	var percent:int = Math.round((e.bytesLoaded/e.bytesTotal)*100);
+}
+
+function loadCompleteListener(e:Event):void {
+	tilesLoaded++;
+	tilesCheck();
+	with (e.target){
+		// Smooth bitmap now that tile is loaded.
+		e.target.content.smoothing = true;
+		removeEventListener(ProgressEvent.PROGRESS,loadProgressListener);
+		removeEventListener(Event.COMPLETE,loadCompleteListener);
+		removeEventListener(IOErrorEvent.IO_ERROR,loadIOErrorListener);
+	}
+}
+
+function loadIOErrorListener(e:IOErrorEvent):void {
+	// Data did not load.
+	trace("Error loading data");
+	loadError(e.target);
+}
+
+function loadError(target):void {
+	// Remove events from loader as loading failed.
+	with (target){
+		removeEventListener(ProgressEvent.PROGRESS,loadProgressListener);
+		removeEventListener(Event.COMPLETE,loadCompleteListener);
+		removeEventListener(IOErrorEvent.IO_ERROR,loadIOErrorListener);
+	}
+}
+
+function tilesCheck():void{
+	loaderDisplay.text_mc.myText.htmlText = "Loading Historical Period: "+tilesLoaded+" of "+tilesTotal;
+	if (tilesLoaded==tilesTotal){
+		Tweener.addTween(loaderDisplay,{alpha:0,time:1,onComplete:function(){removeChild(loaderDisplay);}});
+		for (var i:uint = 0;i<myPlanes.length;i++){
+			myPlanes[i].visible=true;
+			myPlanes[i].material.updateBitmap();
+			//Tweener.addTween(myPlanes[i],{x:myPlanes[i].extra.goto.x, y:myPlanes[i].extra.goto.y,time:0.5, delay:i/16,transition:"easeInBack"});
+			Tweener.addTween(myPlanes[i],{x:myPlanes[i].extra.goto.x, y:myPlanes[i].extra.goto.y,time:0.2});
+		}
+	}
+	
+}
+
+function fileProgressListener(e:ProgressEvent):void {
+	var percent:int = Math.round((e.bytesLoaded/e.bytesTotal)*100);
+}
+
+function fileCompleteListener(e:Event):void {
+	
+	with (e.target){
+		//e.target.loader.filters = [bevel];
+		removeEventListener(ProgressEvent.PROGRESS,fileProgressListener);
+		removeEventListener(Event.COMPLETE,fileCompleteListener);
+		removeEventListener(IOErrorEvent.IO_ERROR,fileIOErrorListener);
+	}
+}
+
+function fileIOErrorListener(e:IOErrorEvent):void {
+	// Data did not load.
+	trace("Error loading data");
+	loadError(e.target);
+}
+
+function fileError(target):void {
+	// Remove events from loader as loading failed.
+	with (target){
+		removeEventListener(ProgressEvent.PROGRESS,fileProgressListener);
+		removeEventListener(Event.COMPLETE,fileCompleteListener);
+		removeEventListener(IOErrorEvent.IO_ERROR,fileIOErrorListener);
+	}
+}
+
+
+init();
